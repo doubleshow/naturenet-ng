@@ -28,3 +28,58 @@
   content: "";
   padding: 0;
 }
+
+
+.angular-google-map-container { 
+  width: 800px;
+  height: 600px; 
+}
+
+
+.deckgrid[deckgrid]::before {
+    /* Specifies that the grid should have a maximum of 4 columns. Each column will have the classes 'column' and 'column-1-4' */
+    content: '5 .column.column-1-5';
+    font-size: 0; /* See https://github.com/akoenig/angular-deckgrid/issues/14#issuecomment-35728861 */
+    visibility: hidden;
+}
+
+.deckgrid .column {
+    float: left;
+}
+
+.deckgrid .column-1-5 {
+    width: 20%;
+}
+
+.card {
+    background:#fff url(images/spinner.gif) center 30px no-repeat;
+    border:1px solid rgba(0, 0, 0, .15);
+    border-radius:3px;
+    margin:0 10px 10px 0;
+    position:relative;
+}
+
+.card-description{
+    padding:15px;
+}
+
+.card-date{
+    padding-left:15px;
+    padding-right:15px;
+}
+
+.tabs.am-fade .tab-pane {
+  opacity: 1;
+  transition: opacity .3s ease;
+  min-height:60px;
+  &.active-add {
+    display: block;
+    opacity: 0;
+    &.active-add-active {
+      opacity: 1;
+    }
+  }
+  &.active-remove {
+    display: none;
+  }
+}
