@@ -3,80 +3,91 @@
 /* Controllers */
 
 angular.module('myApp.controllers', [])
-  .controller('MyCtrl1', ['$scope','$http', function($scope,$http) {
+//   .controller('MyCtrl1', ['$scope','$http', function($scope,$http) {
 
-  	$scope.map = {
-    center: {
-        latitude: 39.1984815,
-        longitude: -106.8367246
-    },
-    zoom: 14
-	};
-	$scope.map.markers = [
-		{latitude: 39.1984515, longitude: -106.8367246},
-		{latitude: 39.1984520, longitude: -106.8378426},
-		{latitude: 39.1984520, longitude: -106.8388426},
-		{latitude: 39.1984520, longitude: -106.8398426}
-	];
+//   	$scope.map = {
+//     center: {
+//         latitude: 39.1984815,
+//         longitude: -106.8367246
+//     },
+//     zoom: 14
+// 	};
+// 	$scope.map.markers = [
+// 		{latitude: 39.1984515, longitude: -106.8367246},
+// 		{latitude: 39.1984520, longitude: -106.8378426},
+// 		{latitude: 39.1984520, longitude: -106.8388426},
+// 		{latitude: 39.1984520, longitude: -106.8398426}
+// 	];
 
-	$scope.map.notes = [];
+// 	$scope.map.notes = [];
 
-	$scope.note = null;
+// 	$scope.note = null;
 
-	$http.get('http://naturenet.herokuapp.com/api/account/jenny/notes').success(function(data) {  	
-    	$scope.map.notes = data.data;
+// 	$http.get('http://naturenet.herokuapp.com/api/account/jenny/notes').success(function(data) {  	
+//     	$scope.map.notes = data.data;
 
-		 _.each($scope.map.notes, function (marker) {
-        	marker.closeClick = function () {
-            	marker.showWindow = false;
-            	$scope.$apply();
-        	};
-        	marker.icon = "https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png";
-        	marker.onClicked = function () {
-            	//onMarkerClicked(marker);
-            	//alert('Hello ' + (marker.content || 'world') + '!');
-            	marker.showWindow = true;
-            	if ($scope.note){
-            		$scope.note.icon = "https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png";
-        		}
-            	marker.icon = "https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png";
-            	$scope.note = marker;
-            	//{latitude: marker.latitude, longitude: marker.longitude};
-            	//$scope.note.icon = "https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png";
-            	$scope.$apply();
-        	};
-    	});
+// 		 _.each($scope.map.notes, function (marker) {
+//         	marker.closeClick = function () {
+//             	marker.showWindow = false;
+//             	$scope.$apply();
+//         	};
+//         	marker.icon = "https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png";
+//         	marker.onClicked = function () {
+//             	//onMarkerClicked(marker);
+//             	//alert('Hello ' + (marker.content || 'world') + '!');
+//             	marker.showWindow = true;
+//             	if ($scope.note){
+//             		$scope.note.icon = "https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png";
+//         		}
+//             	marker.icon = "https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png";
+//             	$scope.note = marker;
+//             	//{latitude: marker.latitude, longitude: marker.longitude};
+//             	//$scope.note.icon = "https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png";
+//             	$scope.$apply();
+//         	};
+//     	});
 
-  	});
+//   	});
 
-  	$scope.onClick = function(marker) {
-       alert('Hello ' + (marker || 'world') + '!');
-    };
+//   	$scope.onClick = function(marker) {
+//        alert('Hello ' + (marker || 'world') + '!');
+//     };
 
-    $scope.setMarker = function(marker){
-    	if ($scope.note){
-            $scope.note.icon = "https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png";
+//     $scope.setMarker = function(marker){
+//     	if ($scope.note){
+//             $scope.note.icon = "https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png";
+//         }
+//     	marker.icon = "https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png";
+//     	$scope.note = marker;
+//     };
+
+
+//     $scope.button = {
+//   "toggle": true,
+//   "checkbox": {
+//     "left": true,
+//     "middle": false,
+//     "right": true
+//   },
+//   "radio": 0
+// };
+
+//   }])
+
+  .controller('NavController', ['$scope','$location', function($scope, $location) {
+
+    $scope.test = "hello";
+
+    $scope.getClass = function(path) {
+        $scope.path = $location.path;            
+        if ($location.path().substr(0, path.length) == path) {
+            return "active"
+        } else {
+            return ""
         }
-    	marker.icon = "https://maps.gstatic.com/mapfiles/ms2/micons/red-dot.png";
-    	$scope.note = marker;
-    };
-
-
-    $scope.button = {
-  "toggle": true,
-  "checkbox": {
-    "left": true,
-    "middle": false,
-    "right": true
-  },
-  "radio": 0
-};
+    }
 
   }])
-
-
-
-
 
   .controller('SiteController', ['$scope','$routeParams','$http', function($scope,$routeParams,$http) {
 
@@ -116,10 +127,12 @@ angular.module('myApp.controllers', [])
   	
 	$scope.map.markers = [];
 
+	var site = $routeParams.name;
+
 	$scope.showNotesEveryone = function() {
 		$scope.doLogin = false;
-		$http.get('http://naturenet.herokuapp.com/api/account/jenny/notes').success(function(data) {  	
-    		$scope.notes = data.data.reverse().slice(0,20);
+		$http.get('http://naturenet.herokuapp.com/api/site/' + site + '/notes').success(function(data) {  	
+    		$scope.notes = data.data.reverse().slice(0,50);
     		$scope.map.markers = _.map($scope.notes, 
     			function(x){
     				var marker = {latitude: x.latitude, longitude: x.longitude, icon: "https://maps.gstatic.com/mapfiles/ms2/micons/blue-dot.png"};
@@ -152,7 +165,7 @@ angular.module('myApp.controllers', [])
 
     $scope.showNotesUser = function(user){
     	if (user){
-    		$http.get('http://naturenet.herokuapp.com/api/account/' + user.username + '/notes').success(function(data) {  	
+    		$http.get('http://naturenet.herokuapp.com/api/site/' + site + '/notes/' + user.username).success(function(data) {  	
     			$scope.notes = data.data.reverse();
     		});
     	}else{
@@ -180,7 +193,7 @@ angular.module('myApp.controllers', [])
 
     $scope.login = function(account){
     	 if (account){
-    		$http.get('http://naturenet.herokuapp.com/api/account/carol').success(function(data) {
+    		$http.get('http://naturenet.herokuapp.com/api/account/' + account.username).success(function(data) {
     			$scope.user = data.data;    			
 		    	$scope.doLogin = false;
     			$scope.isLogin = true;
@@ -196,5 +209,7 @@ angular.module('myApp.controllers', [])
   	$scope.onClick = function(marker) {
        alert('Hello ' + (marker || 'world') + '!');
     };	
+
+
 
   }]);

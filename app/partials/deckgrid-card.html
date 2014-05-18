@@ -1,5 +1,7 @@
-<div class="card">
-    <img src="" data-ng-src="{{card.medias[0].link}}">
+<div class="card" style="padding:5px;">
+    <img src="" data-ng-src="{{card.medias[0].link | thumb }}">
     <p class="card-description">{{card.content}}</p>
-    <p class="card-date">{{card.created_at | date : 'short'}}</p>
+	<div class="" style="background: #e0e0e0; padding:2px;">Submitted by {{card.account.username}}<br>
+		    	<span am-time-ago="card.created_at"></span>
+	</div>      
 </div>

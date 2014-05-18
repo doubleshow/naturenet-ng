@@ -54,7 +54,7 @@
 	<div class="span4" ng-show="map.note">
 
 		<div class="note" style="margin-left:5px; padding:5px; background:#fff;">
-		    <img src="" data-ng-src="{{map.note.medias[0].link}}" style="padding:0px; width:100%">
+		    <img src="" data-ng-src="{{map.note.medias[0].link | medium}}" style="padding:0px; width:100%">
 		    <p class="card-description">{{map.note.content}}</p>
 		    <div class="" style="background: #e0e0e0; padding:2px;">Submitted by {{map.note.account.username}}<br>
 		    	{{map.note.created_at | date : 'short'}}
@@ -62,4 +62,5 @@
 		</div>
 		
 	</div>
-</div>
+</div>  
+

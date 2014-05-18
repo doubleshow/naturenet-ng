@@ -6,7 +6,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>My AngularJS App</title>
+  <title>NatureNet</title>
   <meta name="description" content="">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="bower_components/html5-boilerplate/css/normalize.css">
@@ -24,33 +24,34 @@
   <![endif]-->
 
 <!-- Navbar ================================================== -->
-    <div class="navbar navbar-fixed-top">
+    <div class="navbar navbar-fixed-top" ng-controller="NavController">
+      {{ path }}
       <div class="navbar-inner">
         <div class="container">
-          <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+<!--           <button type="button" class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
-          </button>
+          </button> -->
           <a class="brand" href="./index.html">NatureNet</a>
           <div class="nav-collapse collapse">
             <ul class="nav">
-              <li class="active">
+              <li ng-class="getClass('/home')">
                 <a href="#home">Home</a>
               </li>
-              <li class="">
+              <li ng-class="getClass('/site/aces')">
                 <a href="#/site/aces">ACES</a>
               </li>
-              <li class="">
+              <li ng-class="getClass('/site/cu')">
                 <a href="#/site/cu">CU</a>
               </li>
-              <li class="">
+              <li ng-class="getClass('/site/umd')">
                 <a href="#/site/umd">UMD</a>
               </li>
-              <li class="">
+              <li ng-class="getClass('/site/uncc')">
                 <a href="#/site/uncc">UNCC</a>
               </li>
-              <li class="">
+              <li ng-class="getClass('/about')">
                 <a href="#about">About</a>
               </li>
             </ul>
@@ -58,9 +59,6 @@
         </div>
       </div>
     </div>
-
-
-
 
   <div class="container">
   <div ng-view></div>
@@ -77,6 +75,10 @@
   <script src="bower_components/angular-deckgrid/angular-deckgrid.js"></script>
 
   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.9/angular.min.js"></script> <script src="bower_components/angular-strap/dist/angular-strap.min.js"></script> <script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.6.0/moment.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/angular.moment/0.7.1/angular-moment.min.js"></script>
+
 
   <script src="js/ui-bootstrap-tpls-0.11.0.min.js"></script>
 
