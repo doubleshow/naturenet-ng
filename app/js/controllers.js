@@ -89,7 +89,7 @@ angular.module('myApp.controllers', [])
 
   }])
 
-  .controller('SiteController', ['$scope','$routeParams','$http', function($scope,$routeParams,$http) {
+  .controller('SiteController', ['$scope','$routeParams','$http', '$cookieStore', function($scope,$routeParams,$http,$cookieStore) {
 
 
   	$scope.radioModel = 'Map';
@@ -116,6 +116,8 @@ angular.module('myApp.controllers', [])
 			longitude: -76.942868
     	}    	    	
 	};
+
+    $scope.cookies = $cookieStore.get("user");
 
 	$scope.map.center = $scope.map.centers['aces'];
 
@@ -157,8 +159,6 @@ angular.module('myApp.controllers', [])
     	$scope.note = marker;
     };	
 
-	$scope.showNotesEveryone();
-
     $scope.reset = function(){
 
     };
@@ -189,12 +189,15 @@ angular.module('myApp.controllers', [])
     	$scope.account = {};
     	$scope.radioModel = 'Everyone';
     	$scope.showNotesEveryone();
+
+        $cookieStore.remove("user");
     };    
 
     $scope.login = function(account){
     	 if (account){
     		$http.get('http://naturenet.herokuapp.com/api/account/' + account.username).success(function(data) {
     			$scope.user = data.data;    			
+                $cookieStore.put("user", $scope.user);
 		    	$scope.doLogin = false;
     			$scope.isLogin = true;
     			$scope.showNotesUser($scope.user);
@@ -210,6 +213,11 @@ angular.module('myApp.controllers', [])
        alert('Hello ' + (marker || 'world') + '!');
     };	
 
-
+    var user = $cookieStore.get("user")
+    if (user){
+       $scope.login(user);
+    }else{
+       $scope.showNotesEveryone(); 
+    };
 
   }]);

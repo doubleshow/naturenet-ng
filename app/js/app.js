@@ -12,7 +12,8 @@ angular.module('myApp', [
   'ui.bootstrap',
   'mgcrea.ngStrap',
   'akoenig.deckgrid',
-  'angularMoment'
+  'angularMoment',
+  'ngCookies'
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {templateUrl: 'partials/landing.html'});
