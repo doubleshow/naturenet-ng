@@ -1,0 +1,13 @@
+<div class="card" style="padding:5px;">
+    <img src="" data-ng-src="{{card.medias[0].link | thumb }}">
+    <p class="card-description">{{card.content}}</p>
+		<div style="background: #e0e0e0; padding:2px;">	
+			<table>
+				<tr><td style="vertical-align:top;">
+			<img src="" data-ng-src="{{card.account.icon_url}}" width="32px">				
+				</td><td style="font-size:85%; padding-left:5px;">
+				Submitted by {{card.account.username}}<br>
+		    	<span am-time-ago="card.created_at"></span>
+		    </td></tr></table>
+		</div>
+</div>

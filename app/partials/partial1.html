@@ -1,0 +1,24 @@
+<p>This is the partial for view 1.</p>
+
+<button type="button" class="btn btn-default" ng-model="button.toggle" bs-checkbox>Toggle</button>
+
+<!-- <div ng-repeat="note in map.notes">
+<p ng-click="setMarker(note)">{{ note.content }}</p>
+</div>
+ -->
+
+
+
+<google-map center="map.center" zoom="map.zoom">
+
+<marker coords='note' icon=""></marker>
+
+<markers models="map.notes" coords="'self'" icon="'icon'" labelContent="'title'" click="'onClicked'">	     
+</markers>
+</google-map>
+
+
+Content:<br>
+{{ note.content }}
+<p>
+<img src="{{ note.medias[0].link }}" width="200px">

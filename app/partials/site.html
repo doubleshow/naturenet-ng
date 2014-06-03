@@ -1,0 +1,71 @@
+<h1>{{site.name}}</h1>
+<p>{{site.description}}<p>
+<div class="row">
+  <div class="btn-group span8">
+    	<label class="btn btn-success" ng-model="radioModel" btn-radio="'User'"  ng-click="showNotesUser(user)">
+        	Your Notes
+       	</label>
+        <label class="btn btn-success" ng-model="radioModel" btn-radio="'Everyone'"  ng-click="showNotesEveryone()">
+        	Everyone's Notes
+        </label>
+        <label class="btn btn-success" ng-model="radioModel" btn-radio="'Map'" ng-click="showMap()">Map</label>
+  </div>
+  <div class="span4">
+        <button ng-show="isLogin" style="float:right;" type="submit" class="btn btn-primary" ng-click="logout()">Logout</button>
+  </div>
+</div>
+
+
+<div class="span7">
+
+<form ng-show="doLogin" class="form-horizontal well">
+<legend>Sign in to see your notes.</legend>
+          <div class="control-group">
+            <label class="control-label" for="input01" >Username</label>
+            <div class="controls">
+              <input type="text" class="input-xlarge" id="input01" ng-model="account.username">
+            </div>
+          </div>
+          <div class="control-group">
+            <label class="control-label" for="input01">Password</label>
+            <div class="controls">
+              <input type="password" class="input-xlarge" id="input01" ng-model="account.password">
+            </div>
+          </div>          
+          <div class="form-actions">
+            <button type="submit" class="btn btn-primary" ng-click="login(account)">Login</button>
+          </div>
+</form>
+</div>
+
+<p>	
+
+<div ng-show="isShowGrid()" deckgrid source="notes" cardTemplate="partials/deckgrid-card.html" class="deckgrid"></div>
+
+
+<div ng-show="isShowMap()" class="row">
+	<div class="span8">
+<google-map center="map.center" zoom="map.zoom">
+<markers models="map.markers" coords="'self'" icon="'icon'" labelContent="'title'" click="'onClicked'">	     
+</markers>
+</google-map>
+	</div>
+	<div class="span4" ng-show="map.note">
+
+		<div class="note" style="margin-left:5px; padding:5px; background:#fff;">
+		    <img src="" data-ng-src="{{map.note.medias[0].link | medium}}" style="padding:0px; width:100%">
+		    <p class="card-description">{{map.note.content}}</p>
+		    <div class="" style="background: #e0e0e0; padding:2px;">
+                <table>
+                <tr><td style="vertical-align:top;">
+              <img src="" data-ng-src="{{map.note.account.icon_url}}" width="32px">       
+                </td><td style="font-size:85%; padding-left:5px;">
+                Submitted by {{map.note.account.username}}<br>
+                  <span am-time-ago="map.note.created_at"></span>
+                </td></tr></table>        
+
+		   	</div>
+		</div>
+		
+	</div>
+</div> 
