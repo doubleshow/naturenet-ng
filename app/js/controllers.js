@@ -91,15 +91,16 @@ angular.module('myApp.controllers', [])
 
   .controller('MapController', ['$scope','$routeParams','$http', '$timeout', function($scope,$routeParams,$http,$timeout) {
         $scope.map = {};
-        $scope.map.zoom = 19;
+        $scope.map.zoom = 17;
+        $scope.map.zooms = { aces: 19, cu: 17, uncc: 17, umd: 17};
         $scope.map.centers = {
             aces: {
                 latitude: 39.195795,
                 longitude: -106.821829
             },
             cu: {
-                latitude: 40.007581,
-                longitude: -105.265942
+                latitude: 40.0073119,
+                longitude: -105.2697332
             },
             uncc: {
                 latitude: 35.30757,
@@ -109,18 +110,19 @@ angular.module('myApp.controllers', [])
                 latitude: 38.986937,
                 longitude: -76.942868
             }               
-        };
-        $scope.map.center = $scope.map.centers['aces'];
+        };       
         $scope.map.options = {
             mapTypeId: google.maps.MapTypeId.SATELLITE,
             panControl: false,
-            scaleControl: false,
+            // scaleControl: false,
             zoomControl: false,
             scrollwheel: false
         }
         $scope.map.markers = [];
 
-        var site = 'aces'
+        var site = $routeParams.name;
+         $scope.map.center = $scope.map.centers[site];
+         $scope.map.zoom = $scope.map.zooms[site];
 
         // refresh every ? seconds
         setInterval(function() {
@@ -132,15 +134,17 @@ angular.module('myApp.controllers', [])
         var download_notes = function(){
 
             $http.get('http://naturenet.herokuapp.com/api/site/' + site + '/notes').success(function(data) {    
-                $scope.notes = data.data.reverse();//.slice(0,5);
+                $scope.notes = data.data.reverse();
                 $scope.map.markers = _.map($scope.notes, 
                     function(x){
                         var marker = {
                             id: x.id,
                             latitude: x.latitude, 
-                            longitude: x.longitude, 
-                            icon: String(x.medias[0].link).replace("upload/", "upload/w_50,h_50,bo_2px_solid_white/")
+                            longitude: x.longitude
                         };
+                        if (x.kind == 'FieldNote'){
+                            marker['icon'] = String(x.medias[0].link).replace("upload/", "upload/w_50,h_50,bo_2px_solid_white/")
+                        }
                         marker.onClicked = function () {
                             $scope.map.note = x;
                             $scope.$apply();
