@@ -142,8 +142,11 @@ angular.module('myApp.controllers', [])
                             latitude: x.latitude, 
                             longitude: x.longitude
                         };
-                        if (x.kind == 'FieldNote'){
-                            marker['icon'] = String(x.medias[0].link).replace("upload/", "upload/w_50,h_50,bo_2px_solid_white/")
+                        if (x.kind == 'FieldNote' && x.medias != null){
+                            var media = x.medias[0]
+                            if (media && media.link){
+                                marker['icon'] = media.link.replace("upload/", "upload/w_50,h_50,bo_2px_solid_white/")
+                            }
                         }
                         marker.onClicked = function () {
                             $scope.map.note = x;
