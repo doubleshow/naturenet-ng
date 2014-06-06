@@ -92,7 +92,7 @@ angular.module('myApp.controllers', [])
   .controller('MapController', ['$scope','$routeParams','$http', '$timeout', function($scope,$routeParams,$http,$timeout) {
         $scope.map = {};
         $scope.map.zoom = 17;
-        $scope.map.zooms = { aces: 19, cu: 17, uncc: 17, umd: 17};
+        $scope.map.zooms = { aces: 18, cu: 17, uncc: 17, umd: 17};
         $scope.map.centers = {
             aces: {
                 latitude: 39.195795,
