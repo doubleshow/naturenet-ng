@@ -1,0 +1,27 @@
+<div class="row well" ng-repeat="note in notes">           
+	<div class="span1">
+	{{note.kind}}
+	</div>
+	<div class="span2">
+	<img src="" data-ng-src="{{note.medias[0].link | thumb }}">
+	</div>
+	<div class="span3">
+
+	Submitted by {{note.account.username}}<br>
+	<span am-time-ago="note.created_at"></span><br>
+		<div class="description well">
+    	{{note.content}}
+    	</div>    	
+	</div>
+	<div class="span3">
+		<div ng-repeat="feedback in note.feedbacks">
+			<b>{{feedback.kind}}</b> by {{feedback.account.username}}
+			<div class="panel">
+    		{{feedback.content}}
+    		</div>
+    	</div>
+	</div>	
+	<div class="span2">
+ 		<button type="button" class="btn btn-danger" ng-click="deleteNote(note.id)">Delete</button>
+	</div>
+</div>

@@ -88,7 +88,32 @@ angular.module('myApp.controllers', [])
     }
 
   }])
+  .controller('AdminController', ['$scope','$routeParams','$http', function($scope,$routeParams,$http) {
+        // $http.get('http://localhost:5000/api/notes?n=5').success(function(data) {    
 
+        var api = 'http://naturenet.herokuapp.com/api'
+        // var api = 'http://localhost:5000/api'
+
+        // var deleteapi = 'http://localhost:5000/api'
+        var deleteapi = api
+
+        $http.get(api + '/notes').success(function(data) {    
+            $scope.notes = data.data.reverse()
+        }); 
+
+        $scope.deleteNote = function (noteId) {            
+            // $http.delete('http://localhost:5000/api/note', {params: {id: noteId}}).success(function(data) { 
+
+            $http({method: 'GET', url: deleteapi + '/note/' + noteId + '/delete'}).
+                success(function(data, status, headers, config) {
+
+                $http.get(api + '/notes').success(function(data) {    
+                    $scope.notes = data.data.reverse()
+                }); 
+
+            });        
+        };        
+  }])
   .controller('MapController', ['$scope','$routeParams','$http', '$timeout', function($scope,$routeParams,$http,$timeout) {
         $scope.map = {};
         $scope.map.zoom = 17;

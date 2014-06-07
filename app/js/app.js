@@ -18,5 +18,6 @@ angular.module('myApp', [
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/home', {templateUrl: 'partials/landing.html'});
   $routeProvider.when('/site/:name', {templateUrl: 'partials/map.html', controller: 'MapController'});
+  $routeProvider.when('/admin', {templateUrl: 'partials/admin.html', controller: 'AdminController'});
   $routeProvider.otherwise({redirectTo: '/home'});
 }]);
